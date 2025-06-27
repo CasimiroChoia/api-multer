@@ -1,0 +1,34 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node --watch dist/server.js",
+    "front-end": "npx serve front-end -l 80",
+    "build": "tsc"
+  },
+  "keywords": [
+    "api",
+    "multer",
+    "file"
+  ],
+  "author": "devCasi",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@types/express": "^5.0.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "faker": "^6.6.6",
+    "mongod": "^2.0.0",
+    "mongoose": "^8.12.2",
+    "multer": "^2.0.1",
+    "mysql": "^2.18.1",
+    "prettier": "^3.5.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.1",
+    "typescript": "^5.8.3"
+  }
+}

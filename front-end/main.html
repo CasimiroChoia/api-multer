@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./index.css">
+    <link rel="shortcut icon" href="./img/001-api.png" type="image/x-icon">
+    <link rel="stylesheet" href="./main.css">
+    <title>API-SENDER</title>
+    <script defer src="main.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <main>
+            <img src="img/001-api.png" draggable="false" style="width:200px;" alt="logo">
+            <h1>UpLoader</h1>
+            <form action="" id="form" enctype="multipart/form-data">
+                <div class="box">
+                    <label for="endpoint">Endpoint</label>
+                    <input type="url" name="endpoint" placeholder="http://api.endpoint.com" id="endpoint" required>
+                </div>
+                <div class="box">
+                    <label for="file">Ficheiro</label>
+                    <output id="saida">Selecione um ficheiro</output>
+                    <input onchange="mudarValor()" style="display: none;" type="file" name="file" id="file" required>
+                </div>
+
+                <button type="submit" id="btnEnviar" class="btnSender">Enviar</button>
+            </form>
+            <!-- <a href="./see.html">
+                <button class="btnSender">Ver itens já enviados</button>
+            </a> -->
+        </main>
+
+        <section id="resp" class="hide">
+            <h2>Respostas</h2>
+
+        </section>
+    </div>
+</body>
+
+</html>
