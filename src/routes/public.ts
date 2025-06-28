@@ -45,22 +45,23 @@ routes.post("/newdata", uploadConfig.fields([{ name: "file", maxCount: 1 }]), (r
         if (!data.mimetype) {
             console.log("Não Foi Detetado um mimetype.");
             return res.status(500).json("Não Foi Detetado um mimetype.");
-        };
+        }
+
         const fim = Date.now();
         let dataSended = {
             id: Math.floor(Math.random() * 100),
             ...data,
             data: new Date(),
             size: data.size,
-            duracao: fim - inicio + "s",
+            duracao: ((fim - inicio) / 1000).toFixed(3) + "s",
             sendedBy: req.socket.remoteLocal,
-            src: `http://${req.hostname}:${req.socket.localPort}/public/uploadedFiles/${filter({ mimetype: data.mimetype }) || "null"}/${encodeURI(data.filename)}`
+            src: `http://${req.hostname}:${req.socket.localPort}/public/uploadedFiles/${filter({ mimetype: data.mimetype }) || "other"}/${encodeURI(data.filename)}`
         }
         list.push(dataSended);
-        res.status(201).json(dataSended);
         console.log(`O endereço ${req?.socket.remoteAddress} enviou o ficheiro: ` + data.filename);
+        return res.status(201).json(dataSended);
     } catch (error) {
-        res.status(500).json({ aaa: "OCORREU ALGUM ERRO NO SERVIDOR.", error });
+        return res.status(500).json({ aaa: "OCORREU ALGUM ERRO NO SERVIDOR.", error });
     }
 })
 

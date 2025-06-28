@@ -10,7 +10,7 @@ function mudarValor() {
     // console.log(inpFile?.files[0] || "Selecione um ficheiro");
 }
 
-form.addEventListener("submit", (e) => {
+form.addEventListener("submit", async (e) => {
     e.preventDefault()
     let btnEnviar = document.querySelector("#btnEnviar");
     console.log("btn disablitado");
@@ -24,20 +24,21 @@ form.addEventListener("submit", (e) => {
     formdata.append("mimetype", file.type);
     formdata.append("size", file.size);
 
+    // let resp = await fetch("http://10.10.10.10:6106/list");
+    // let data = await resp.json()
+    // console.log(JSON.stringify(data));
+
+
     fetch(endpoit.value, {
         method: "post",
-        mode: "no-cors",
-        headers: {
-            "Content-Type": "application/json"
-        },
         body: formdata,
     })
         .then(res => {
-            return res;
+            return res.json();
         })
         .then(data => {
-            console.log(data);
-            document.querySelector("section#resp>h2").insertAdjacentHTML("afterend", `<p class='success'>O ficheiro ${file.name.length > 7 ? file.name.slice(0, 7) + "..." : file.name} foi enviado com sucesso.</p>`);
+            // console.log(data);
+            document.querySelector("section#resp>h2").insertAdjacentHTML("afterend", `<p class='success'>O ficheiro ${data.filename.length > 7 ? data.filename.slice(0, 7) + "..." : data.filename} foi enviado com sucesso no diretorio: ${data.src}.</p>`);
             document.querySelector("section#resp").classList.remove("hide")
         })
         .catch(erro => {

@@ -10,15 +10,15 @@ type fileProps = {
 
 const storage = multer.diskStorage({
     destination: (req: any, file: fileProps, cb: any) => {
-
-        switch (path.extname(file.originalname).toLocaleLowerCase()) {
-            case ".jpg" || ".png" || ".jpeg": //imagem
+        let extension = path.extname(file.originalname).toLocaleLowerCase().replace(".", "");
+        switch (extension) {
+            case "jpg" || "png" || "jpeg": //imagem
                 cb(null, "public/uploadedFiles/image/")
                 break;
-            case ".mp4" || ".avi" || ".mov": //video
+            case "mp4" || "avi" || "mov": //video
                 cb(null, "public/uploadedFiles/video/")
                 break;
-            case ".mp3" || ".wav" || ".aac": // audio
+            case "mp3" || "wav" || "aac": // audio
                 cb(null, "public/uploadedFiles/audio/")
                 break;
             default:
