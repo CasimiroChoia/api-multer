@@ -13,7 +13,7 @@
     "file"
   ],
   "author": "devCasi",
-  "license": "ISC",
+  "license": "MIT",
   "description": "",
   "dependencies": {
     "@types/express": "^5.0.3",

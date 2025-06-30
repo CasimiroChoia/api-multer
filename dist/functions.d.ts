@@ -1,4 +1,3 @@
-type filterProps = {
+export declare const filter: ({ mimetype }: {
     mimetype: string;
-};
-declare const filter: ({ mimetype }: filterProps) => string;
+}) => string;

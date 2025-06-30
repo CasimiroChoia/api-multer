@@ -3,18 +3,18 @@ import express from "express";
 import path from "path";
 import cors from "cors";
 import { cwd } from "process";
-import routes from "./routes/public.js";
+import routes from "./routes/routes.js";
 dotenv.config()
 
 const app = express();
 app.use(cors())
-app.use(express.json({limit:"3gb"}));
+app.use(express.json());
 app.use(routes);
 app.use("/public", express.static(path.join(cwd(), "public")));
 
 console.log("DIRECTORIO: "+path.join(cwd(), "/public"));
 
-const PORTA: any | bigint | undefined = process.env.PORTA | 5000;
+const PORTA = process.env.PORTA | 6106;
 
 
 

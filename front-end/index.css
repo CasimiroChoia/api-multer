@@ -42,3 +42,7 @@ main a {
     border-radius: 10px;
     background-color: rgb(163,163,163);
 }
+
+a {
+    text-decoration: none;
+}

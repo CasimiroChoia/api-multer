@@ -1,0 +1,13 @@
+div video,
+div img {
+    width: 300px;
+}
+
+.btnSender {
+    margin-top: 1em;
+}
+
+details {
+    margin-block: 1em;
+    cursor: pointer;
+}

@@ -1,16 +1,19 @@
 import express from "express";
 import { uploadConfig } from "../configMulter.js";
 import { filter } from "../functions.js";
-// import { list } from "../data/db.js";~
 const list = [];
 const routes = express.Router();
+// type data = {
+//     filename: string,
+//     mimetype: string,
+// }
 // GET ROUTES
 routes.get("/", (req, res) => {
     try {
         res.status(200).json("SERVIDOR FUNCIONANDO");
     }
     catch (error) {
-        res.status(500).json({ aaa: "OCORREU ALGUM ERRO NO SERVIDOR", error });
+        res.status(500).json({ sms: "OCORREU ALGUM ERRO NO SERVIDOR", error });
     }
 });
 routes.get("/list", (req, res) => {
@@ -18,7 +21,7 @@ routes.get("/list", (req, res) => {
         res.status(200).json(list);
     }
     catch (error) {
-        res.status(500).json({ aaa: "OCORREU ALGUM ERRO NO SERVIDOR", error });
+        res.status(500).json({ sms: "OCORREU ALGUM ERRO NO SERVIDOR", error });
     }
 });
 // POST ROUTES
@@ -26,37 +29,31 @@ routes.post("/newdata", uploadConfig.fields([{ name: "file", maxCount: 1 }]), (r
     // dados obrigatorios "filename, file, mimetype"
     try {
         const data = req.body;
-        const inicio = Date.now();
-        if (!data) {
-            console.log("Sem Algum Corpo Na Requisição.");
-            return res.status(500).json("Sem Algum Corpo Na Requisição.");
-        }
-        ;
         if (!data.filename) {
-            console.log("Não Detetamos Um Nome Neste Ficheiro.");
-            return res.status(500).json("Não Detetamos Um Nome Neste Ficheiro.");
+            let error = "Não Detetamos Um Nome Neste Ficheiro.";
+            console.log(error);
+            return res.status(500).json(error);
         }
         ;
         if (!data.mimetype) {
-            console.log("Não Foi Detetado um mimetype.");
-            return res.status(500).json("Não Foi Detetado um mimetype.");
+            let error = "Não Foi Detetado um mimetype.";
+            console.log(error);
+            return res.status(500).json(error);
         }
-        const fim = Date.now();
         let dataSended = {
             id: Math.floor(Math.random() * 100),
             ...data,
             data: new Date(),
             size: data.size,
-            duracao: ((fim - inicio) / 1000).toFixed(3) + "s",
-            sendedBy: req.socket.remoteLocal,
-            src: `http://${req.hostname}:${req.socket.localPort}/public/uploadedFiles/${filter({ mimetype: data.mimetype }) || "other"}/${encodeURI(data.filename)}`
+            sendedBy: req?.socket.remoteAddress,
+            src: `http://${req.hostname}:${req.socket.localPort}/public/uploadedFiles/${filter({ mimetype: data.mimetype })}/${encodeURI(data.filename.replaceAll(" ", "_"))}`
         };
         list.push(dataSended);
         console.log(`O endereço ${req?.socket.remoteAddress} enviou o ficheiro: ` + data.filename);
         return res.status(201).json(dataSended);
     }
     catch (error) {
-        return res.status(500).json({ aaa: "OCORREU ALGUM ERRO NO SERVIDOR.", error });
+        return res.status(500).json({ sms: "OCORREU ALGUM ERRO NO SERVIDOR.", error });
     }
 });
 export default routes;

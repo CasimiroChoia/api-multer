@@ -1,4 +1,4 @@
-const filter = ({ mimetype }) => {
+export const filter = ({ mimetype }) => {
     if (mimetype.startsWith("image")) {
         return "image";
     }
@@ -8,11 +8,10 @@ const filter = ({ mimetype }) => {
     else if (mimetype.startsWith("audio")) {
         return "audio";
     }
-    else if (mimetype.startsWith("application")) {
-        return "other";
+    else if (mimetype.includes("pdf")) {
+        return "documents/pdf";
     }
     else {
         return "other";
     }
 };
-export { filter };

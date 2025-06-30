@@ -1,5 +1,5 @@
 import multer from "multer";
-import path from "path";
+// import path from "path";
 
 type fileProps = {
     originalname: string,
@@ -10,26 +10,24 @@ type fileProps = {
 
 const storage = multer.diskStorage({
     destination: (req: any, file: fileProps, cb: any) => {
-        let extension = path.extname(file.originalname).toLocaleLowerCase().replace(".", "");
-        switch (extension) {
-            case "jpg" || "png" || "jpeg": //imagem
-                cb(null, "public/uploadedFiles/image/")
-                break;
-            case "mp4" || "avi" || "mov": //video
-                cb(null, "public/uploadedFiles/video/")
-                break;
-            case "mp3" || "wav" || "aac": // audio
-                cb(null, "public/uploadedFiles/audio/")
-                break;
-            default:
-                cb(null, "public/uploadedFiles/other/")
-                break;
+        // let extension = path.extname(file.originalname).toLocaleLowerCase().replace(".", "");
+
+        if (file.mimetype.includes("image")) { //imagem
+            cb(null, "public/uploadedFiles/image/")
+        } else if (file.mimetype.includes("video")) { //video
+            cb(null, "public/uploadedFiles/video/")
+        } else if ((file.mimetype.includes("audio"))) { // audio
+            cb(null, "public/uploadedFiles/audio/")
+        }else if (file.mimetype.includes("pdf")) { //pdf
+            cb(null, "public/uploadedFiles/documents/pdf")
+        } else {
+            cb(null, "public/uploadedFiles/other/")
         }
     },
     filename: (req: any, file: fileProps, cb: any) => {
-        const unicSufix = Date.now();
+        // const unicSufix = Date.now();
         // cb(null, file.originalname + "___" + path.extname(file.originalname))
-        cb(null, file.originalname)
+        cb(null, file.originalname.replaceAll(" ","_"))
     }
 })
 

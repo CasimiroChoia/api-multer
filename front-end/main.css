@@ -70,4 +70,52 @@ a {
 #resp {
     width: 90dvw;
     margin: 0em auto 1.7em;
+    overflow-x: scroll;
+}
+#resp  a{
+    font-size: 40%;
+}
+
+#popup {
+    margin: auto;
+    min-width: 300px;
+    width: 90%;
+    max-width: 500px;
+    display: flex;
+    flex-flow: row nowrap;
+    padding: 10px;
+    border-radius: 20px;
+    
+    &::backdrop {
+        backdrop-filter: blur(50px);
+    }
+}
+
+#popup aside {
+    position: relative;
+    width: fit-content;
+}
+
+.info {
+    width: 90%;
+}
+
+#popup .btn {
+    border-radius: 5px;
+    border: 0;
+    outline: 0;
+    background-color: grey;
+    margin-top: 1.5em;
+    cursor: pointer;
+    padding: 3px 10px;
+}
+
+#popup img {
+    width: 100px;
+    padding: 10px;
+    /* position: absolute; */
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
